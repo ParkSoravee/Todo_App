@@ -72,6 +72,8 @@ flutter:
           weight: 500
         - asset: assets/fonts/Prompt-SemiBold.ttf
           weight: 600
+        - asset: assets/fonts/Prompt-Bold.ttf
+          weight: 700
 
     # - family: Trajan Pro
     #   fonts:

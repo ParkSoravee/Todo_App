@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TodoCard extends StatefulWidget {
@@ -11,6 +12,7 @@ class _TodoCardState extends State<TodoCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: InkWell(
         onTap: () {
           setState(() {
@@ -22,16 +24,22 @@ class _TodoCardState extends State<TodoCard> {
           child: Row(
             children: [
               Icon(
-                isFinish ? Icons.check_circle : Icons.circle_outlined,
-                color: Theme.of(context).primaryColor,
+                isFinish
+                    ? CupertinoIcons.checkmark_alt_circle_fill
+                    // : Icons.check_box_outline_blank_rounded,
+                    : CupertinoIcons.circle,
+                color: isFinish
+                    ? Theme.of(context).primaryColor.withAlpha(200)
+                    : Theme.of(context).primaryColor,
                 size: 28,
               ),
-              SizedBox(width: 12),
+              SizedBox(width: 20),
               Text(
                 'Text',
                 style: TextStyle(
                   fontSize: 17,
                   decoration: isFinish ? TextDecoration.lineThrough : null,
+                  color: isFinish ? Colors.black54 : Colors.black,
                 ),
               ),
             ],
