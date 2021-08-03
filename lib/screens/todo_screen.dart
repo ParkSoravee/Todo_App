@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:todo_app/widgets/add_new_task.dart';
 import 'package:todo_app/widgets/task_list.dart';
 
 class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // bottomSheet: Container(
-      //   height: 200,
-      //   child: Text('ddd'),
-      // ),
+      backgroundColor: Colors.grey.shade50,
       appBar: CupertinoNavigationBar(
         padding: EdgeInsetsDirectional.all(15),
         leading: Icon(CupertinoIcons.bars),
@@ -34,6 +32,7 @@ class TodoScreen extends StatelessWidget {
         ),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -47,6 +46,9 @@ class TodoScreen extends StatelessWidget {
               textAlign: TextAlign.start,
             ),
           ),
+          SizedBox(
+            height: 150,
+          ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             width: double.infinity,
@@ -59,6 +61,7 @@ class TodoScreen extends StatelessWidget {
             ),
           ),
           TaskList(),
+          AddNewTask(),
         ],
       ),
     );
