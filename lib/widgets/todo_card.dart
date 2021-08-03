@@ -11,27 +11,29 @@ class _TodoCardState extends State<TodoCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            isFinish = !isFinish;
-          });
-        },
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
             children: [
-              Icon(
-                isFinish
-                    ? CupertinoIcons.checkmark_alt_circle_fill
-                    // : Icons.check_box_outline_blank_rounded,
-                    : CupertinoIcons.circle,
-                color: isFinish
-                    ? Theme.of(context).primaryColor.withAlpha(200)
-                    : Theme.of(context).primaryColor,
-                size: 28,
+              InkWell(
+                onTap: () {
+                  setState(() {
+                    isFinish = !isFinish;
+                  });
+                },
+                child: Icon(
+                  isFinish
+                      ? CupertinoIcons.checkmark_square_fill
+                      : CupertinoIcons.square_fill,
+                  color: isFinish
+                      ? Theme.of(context).primaryColor
+                      : Colors.black12,
+                  size: 28,
+                ),
               ),
               SizedBox(width: 20),
               Text(

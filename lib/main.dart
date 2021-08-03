@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Todo App',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
-        fontFamily: 'Prompt',
+        fontFamily: 'Lato',
       ),
       home: TodoScreen(),
     );

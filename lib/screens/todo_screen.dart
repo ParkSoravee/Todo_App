@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:todo_app/widgets/task_list.dart';
 
-import 'package:todo_app/widgets/todo_card.dart';
-
-class TodoScreen extends StatefulWidget {
-  @override
-  _TodoScreenState createState() => _TodoScreenState();
-}
-
-class _TodoScreenState extends State<TodoScreen> {
+class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // bottomSheet: Container(
+      //   height: 200,
+      //   child: Text('ddd'),
+      // ),
       appBar: CupertinoNavigationBar(
         padding: EdgeInsetsDirectional.all(15),
         leading: Icon(CupertinoIcons.bars),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              CupertinoIcons.search,
-              size: 25,
+            Padding(
+              padding: const EdgeInsets.only(top: 3.0),
+              child: Icon(
+                CupertinoIcons.search,
+                size: 25,
+              ),
             ),
             SizedBox(
               width: 15,
@@ -32,37 +33,33 @@ class _TodoScreenState extends State<TodoScreen> {
           ],
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 18,
-          vertical: 18,
-        ),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              width: double.infinity,
-              child: Text(
-                'What\'s up, Park!',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.start,
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            width: double.infinity,
+            child: Text(
+              'What\'s up, Park!',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.w900,
+              ),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            width: double.infinity,
+            child: Text(
+              'TODAY\'S TASKS',
+              style: TextStyle(
+                color: Colors.black45,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            Expanded(
-              child: Container(
-                // height: 500,
-                margin: EdgeInsets.only(top: 10.0),
-                child: ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (ctx, index) => TodoCard(),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+          TaskList(),
+        ],
       ),
     );
   }
