@@ -7,6 +7,7 @@ class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey.shade50,
       appBar: CupertinoNavigationBar(
         padding: EdgeInsetsDirectional.all(15),
@@ -31,38 +32,40 @@ class TodoScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            // width: double.infinity,
-            child: Text(
-              'What\'s up, Park!',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w900,
-              ),
-              textAlign: TextAlign.start,
-            ),
-          ),
-          // SizedBox(
-          //   height: 150,
-          // ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            width: double.infinity,
-            child: Text(
-              'TODAY\'S TASKS',
-              style: TextStyle(
-                color: Colors.black45,
-                fontWeight: FontWeight.w600,
+      body: LayoutBuilder(
+        builder: (context, constrains) => Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              // width: double.infinity,
+              child: Text(
+                'What\'s up, Park!',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
+                ),
+                textAlign: TextAlign.start,
               ),
             ),
-          ),
-          TaskList(),
-          AddNewTask(),
-        ],
+            // SizedBox(
+            //   height: 150,
+            // ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              width: double.infinity,
+              child: Text(
+                'TODAY\'S TASKS',
+                style: TextStyle(
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            TaskList(),
+            AddNewTask(constrains.maxHeight),
+          ],
+        ),
       ),
     );
   }
