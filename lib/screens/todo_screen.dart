@@ -32,11 +32,11 @@ class TodoScreen extends StatelessWidget {
         ),
       ),
       body: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            width: double.infinity,
+            // width: double.infinity,
             child: Text(
               'What\'s up, Park!',
               style: TextStyle(
@@ -46,9 +46,9 @@ class TodoScreen extends StatelessWidget {
               textAlign: TextAlign.start,
             ),
           ),
-          SizedBox(
-            height: 150,
-          ),
+          // SizedBox(
+          //   height: 150,
+          // ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             width: double.infinity,

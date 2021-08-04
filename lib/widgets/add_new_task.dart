@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/providers/tasks.dart';
 
 class AddNewTask extends StatefulWidget {
   @override
@@ -10,6 +12,17 @@ class _AddNewTaskState extends State<AddNewTask> {
   final _focusNode = FocusNode();
   bool isExpanded = false;
   bool isFocus = false;
+
+  void _addTask() {
+    if (_controller.text.isEmpty) {
+      _focusNode.unfocus();
+      return;
+    }
+    Provider.of<Tasks>(context, listen: false)
+        .addTask(Task(DateTime.now().toString(), _controller.text));
+    _focusNode.unfocus();
+    _controller.clear();
+  }
 
   @override
   void initState() {
@@ -46,22 +59,30 @@ class _AddNewTaskState extends State<AddNewTask> {
       ),
       height: 50,
       width: isFocus ? screenW : 180,
-      padding: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 5,
+      padding: EdgeInsets.only(
+        left: 20,
+        right: 20,
+        bottom: 5,
+        top: 0,
       ),
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 30),
+      margin: EdgeInsets.only(
+        top: 20,
+        left: 20,
+        right: 20,
+        bottom: 30,
+      ),
       child: TextField(
-        style: TextStyle(fontSize: 19),
+        // style: TextStyle(fontSize: 19),
         // textAlignVertical: TextAlignVertical.top,
         focusNode: _focusNode,
         controller: _controller,
         decoration: InputDecoration(
-          labelStyle: TextStyle(fontSize: 18),
+          // labelStyle: TextStyle(fontSize: 18),
           border: InputBorder.none,
           labelText: 'Write a new task',
           floatingLabelBehavior: FloatingLabelBehavior.never,
         ),
+        onEditingComplete: _addTask,
       ),
     );
   }

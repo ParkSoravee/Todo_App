@@ -8,13 +8,17 @@ class Task {
 }
 
 class Tasks with ChangeNotifier {
-  List<Task> tasks = [];
+  List<Task> _tasks = [
+    Task('a', 'title'),
+    Task('b', 'title'),
+  ];
 
-  List<Task> get todo {
-    return [...tasks];
+  List<Task> get tasks {
+    return [..._tasks];
   }
 
-  void addTodo(Task task) {
-    tasks.add(task);
+  void addTask(Task task) {
+    _tasks.add(task);
+    notifyListeners();
   }
 }

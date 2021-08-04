@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TodoCard extends StatefulWidget {
+  final String id;
+  final String title;
+
+  TodoCard(this.id, this.title);
+
   @override
   _TodoCardState createState() => _TodoCardState();
 }
@@ -37,7 +43,7 @@ class _TodoCardState extends State<TodoCard> {
               ),
               SizedBox(width: 20),
               Text(
-                'Text',
+                widget.title,
                 style: TextStyle(
                   fontSize: 17,
                   decoration: isFinish ? TextDecoration.lineThrough : null,
