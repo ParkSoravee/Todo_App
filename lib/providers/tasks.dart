@@ -11,6 +11,11 @@ class Tasks with ChangeNotifier {
   List<Task> _tasks = [
     Task('a', 'title'),
     Task('b', 'title'),
+    Task('c', 'title'),
+    Task('d', 'title'),
+    Task('e', 'title'),
+    Task('f', 'title'),
+    Task('g', 'title'),
   ];
 
   List<Task> get tasks {
