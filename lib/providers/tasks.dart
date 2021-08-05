@@ -3,19 +3,24 @@ import 'package:flutter/material.dart';
 class Task {
   final String id;
   final String title;
+  final String tag;
+  final DateTime? dueDate;
 
-  Task(this.id, this.title);
+  Task(
+    this.id,
+    this.title,
+    this.tag,
+    this.dueDate,
+  );
 }
 
 class Tasks with ChangeNotifier {
   List<Task> _tasks = [
-    Task('a', 'title'),
-    Task('b', 'title'),
-    Task('c', 'title'),
-    Task('d', 'title'),
-    Task('e', 'title'),
-    Task('f', 'title'),
-    Task('g', 'title'),
+    Task('a', 'title', 'study', null),
+    Task('a', 'title', 'study', DateTime.now()),
+    Task('a', 'title', 'study', DateTime.now()),
+    Task('a', 'title', 'study', DateTime.now()),
+    Task('a', 'title', 'study', DateTime.now()),
   ];
 
   List<Task> get tasks {

@@ -35,55 +35,40 @@ class TodoScreen extends StatelessWidget {
     final screenW = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey.shade50,
       appBar: appBar,
       body: LayoutBuilder(
-        builder: (context, constraints) => Stack(
+        builder: (context, constraints) => Column(
           children: [
-            Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    print(screenW);
-                    print(constraints.maxHeight);
-                  },
-                  child: Icon(Icons.add),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     print(screenW);
+            //     print(constraints.maxHeight);
+            //   },
+            //   child: Icon(Icons.add),
+            // ),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text(
+                'What\'s up, Park!',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
+                  color: Theme.of(context).primaryColor,
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Text(
-                    'What\'s up, Park!',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                // SizedBox(
-                //   height: 150,
-                // ),
-                SubTitle(),
-                TaskList(),
-                // SizedBox(
-                //   height: 100,
-                // ),
-                Container(
-                  height: 100,
-                )
-              ],
+                textAlign: TextAlign.start,
+              ),
             ),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: 200),
-              curve: Curves.ease,
-              child: NewTask(),
-              width: constraints.maxWidth,
-              height: 130,
-              top: constraints.maxHeight - 125,
-              // top: screenW - constraints.maxHeight,
-            ),
+            // SizedBox(
+            //   height: 150,
+            // ),
+            SubTitle(),
+            TaskList(),
+            // SizedBox(
+            //   height: 100,
+            // ),
+            NewTask(),
           ],
         ),
       ),
