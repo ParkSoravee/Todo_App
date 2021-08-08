@@ -30,4 +30,9 @@ class Tasks with ChangeNotifier {
   int taskCount(String title) {
     return _tasks.where((task) => task.tag == title).length;
   }
+
+  void deleteTask(String id) {
+    _tasks.removeWhere((task) => task.id == id);
+    notifyListeners();
+  }
 }

@@ -10,6 +10,25 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
+  Task? deleteTask;
+
+  void setDeleteTask(Task task) {
+    deleteTask = Task(task.id, task.title, task.tag, task.dueDate);
+    // print(deleteTask!.title);
+  }
+
+  void unDeleteTask() {
+    if (deleteTask == null) return;
+    Provider.of<Tasks>(context, listen: false).addTask(
+      Task(
+        deleteTask!.id,
+        deleteTask!.title,
+        deleteTask!.tag,
+        deleteTask!.dueDate,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final tasks = Provider.of<Tasks>(context).tasks;
@@ -25,6 +44,8 @@ class _TaskListState extends State<TaskList> {
                   tasks[index].title,
                   tasks[index].tag,
                   tasks[index].dueDate,
+                  setDeleteTask,
+                  unDeleteTask,
                 ),
               ),
             )
