@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_app/providers/tags.dart';
 
 class TodoCard extends StatefulWidget {
   final String id;
   final String title;
+  final String tag;
+  final DateTime? dueDate;
 
-  TodoCard(this.id, this.title);
+  TodoCard(
+    this.id,
+    this.title,
+    this.tag,
+    this.dueDate,
+  );
 
   @override
   _TodoCardState createState() => _TodoCardState();
@@ -17,6 +25,8 @@ class _TodoCardState extends State<TodoCard> {
 
   @override
   Widget build(BuildContext context) {
+    final tagColor =
+        Provider.of<Tags>(context, listen: false).getColor(widget.tag);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Card(
@@ -37,7 +47,7 @@ class _TodoCardState extends State<TodoCard> {
                       : CupertinoIcons.square_fill,
                   color: isFinish
                       ? Theme.of(context).primaryColor
-                      : Colors.black12,
+                      : Colors.black12.withBlue(50),
                   size: 28,
                 ),
               ),
@@ -56,9 +66,16 @@ class _TodoCardState extends State<TodoCard> {
                 ),
               ),
               Container(
-                width: 60,
                 alignment: Alignment.center,
-                child: Text('work'), //TODO : Tag here and color also
+                child: widget.tag != 'other'
+                    ? Text(
+                        widget.tag,
+                        style: TextStyle(
+                          color: tagColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    : null, //TODO : Tag here and color also
               ),
             ],
           ),

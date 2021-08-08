@@ -22,6 +22,8 @@ class _TaskListState extends State<TaskList> {
           itemBuilder: (ctx, index) => TodoCard(
             tasks[index].id,
             tasks[index].title,
+            tasks[index].tag,
+            tasks[index].dueDate,
           ),
         ),
       ),

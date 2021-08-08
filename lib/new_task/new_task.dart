@@ -18,7 +18,7 @@ class _NewTaskState extends State<NewTask> {
   final _focusNode = FocusNode();
   var _isOnFocus = false;
 
-  var _tag = 'other';
+  String _tag = 'other';
   DateTime? _dueDate;
 
   void _addTask() {
@@ -28,11 +28,12 @@ class _NewTaskState extends State<NewTask> {
       _focusNode.unfocus();
       return;
     }
+
     Provider.of<Tasks>(context, listen: false).addTask(
       Task(
         DateTime.now().toString(),
         _controller.text,
-        (_tag), //! save Tag Object
+        _tag, //! save Tag Object
         _dueDate,
       ),
     );

@@ -11,7 +11,7 @@ class Tags with ChangeNotifier {
   List<Tag> _tags = [
     Tag('work', Colors.blue),
     Tag('study', Colors.orange),
-    Tag('improving', Colors.red),
+    Tag('improvement', Colors.red),
     Tag('other', Colors.grey),
   ];
 
@@ -21,5 +21,9 @@ class Tags with ChangeNotifier {
 
   Tag findTagByTitle(String title) {
     return _tags.firstWhere((tag) => tag.title == title);
+  }
+
+  Color getColor(String title) {
+    return _tags.firstWhere((tag) => tag.title == title).color;
   }
 }
