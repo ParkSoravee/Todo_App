@@ -16,13 +16,7 @@ class Task {
 }
 
 class Tasks with ChangeNotifier {
-  List<Task> _tasks = [
-    Task('a', 'title', 'study', null),
-    Task('a', 'title', 'study', DateTime.now()),
-    Task('a', 'title', 'study', DateTime.now()),
-    Task('a', 'title', 'study', DateTime.now()),
-    Task('a', 'title', 'study', DateTime.now()),
-  ];
+  List<Task> _tasks = [];
 
   List<Task> get tasks {
     return [..._tasks];
@@ -31,5 +25,9 @@ class Tasks with ChangeNotifier {
   void addTask(Task task) {
     _tasks.add(task);
     notifyListeners();
+  }
+
+  int taskCount(String title) {
+    return _tasks.where((task) => task.tag == title).length;
   }
 }
