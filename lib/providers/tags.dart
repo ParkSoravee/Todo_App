@@ -18,4 +18,8 @@ class Tags with ChangeNotifier {
   List<Tag> get tags {
     return [..._tags];
   }
+
+  Tag findTagByTitle(String title) {
+    return _tags.firstWhere((tag) => tag.title == title);
+  }
 }

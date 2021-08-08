@@ -42,13 +42,23 @@ class _TodoCardState extends State<TodoCard> {
                 ),
               ),
               SizedBox(width: 20),
-              Text(
-                widget.title,
-                style: TextStyle(
-                  fontSize: 17,
-                  decoration: isFinish ? TextDecoration.lineThrough : null,
-                  color: isFinish ? Colors.black54 : Colors.black,
+              Expanded(
+                child: Text(
+                  widget.title,
+                  softWrap: false,
+                  overflow: TextOverflow.fade,
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 17,
+                    decoration: isFinish ? TextDecoration.lineThrough : null,
+                    color: isFinish ? Colors.black54 : Colors.black,
+                  ),
                 ),
+              ),
+              Container(
+                width: 60,
+                alignment: Alignment.center,
+                child: Text('work'), //TODO : Tag here and color also
               ),
             ],
           ),

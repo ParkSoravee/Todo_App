@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/new_task/tags/tag_button.dart';
 import 'package:todo_app/providers/tags.dart';
 import 'package:todo_app/providers/tasks.dart';
@@ -23,6 +24,7 @@ class _NewTaskState extends State<NewTask> {
   void _addTask() {
     if (_controller.text.isEmpty) {
       // _showTagSelect = false;
+      _dueDate = null;
       _focusNode.unfocus();
       return;
     }
@@ -30,19 +32,33 @@ class _NewTaskState extends State<NewTask> {
       Task(
         DateTime.now().toString(),
         _controller.text,
-        _tag,
+        (_tag), //! save Tag Object
         _dueDate,
       ),
     );
     // _showTagSelect = false;
     _focusNode.unfocus();
     _controller.clear();
+    _dueDate = null;
+    _tag = 'other';
   }
 
   void selectTag(String tag) {
     setState(() {
       _tag = tag;
     });
+  }
+
+  Future<void> _selectDate() async {
+    final selectedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2025),
+    );
+    if (selectedDate != null) {
+      _dueDate = selectedDate;
+    }
   }
 
   @override
@@ -95,19 +111,43 @@ class _NewTaskState extends State<NewTask> {
                 ),
               ],
             ),
-            child: TextField(
-              focusNode: _focusNode,
-              controller: _controller,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                contentPadding:
-                    EdgeInsets.only(bottom: 15, left: 15, right: 15),
-                labelText: 'Write a new task',
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-              ),
-              onEditingComplete: _addTask,
-              // onSubmitted: _addTask,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: TextField(
+                    focusNode: _focusNode,
+                    controller: _controller,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.only(bottom: 15, left: 15, right: 5),
+                      labelText: 'Write a new task',
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                    ),
+                    onEditingComplete: _addTask,
+                  ),
+                ),
+                if (_isOnFocus)
+                  TextButton(
+                    onPressed: _selectDate,
+                    child: _dueDate == null
+                        ? Icon(Icons.calendar_today)
+                        : Text(
+                            DateFormat('d/M').format(_dueDate!),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                            ),
+                          ),
+                    style: TextButton.styleFrom(
+                      minimumSize: Size(50, 50),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
+                  )
+              ],
             ),
           ),
           SizedBox(
