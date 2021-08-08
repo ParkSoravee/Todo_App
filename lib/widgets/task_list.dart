@@ -13,7 +13,13 @@ class _TaskListState extends State<TaskList> {
   Task? deleteTask;
 
   void setDeleteTask(Task task) {
-    deleteTask = Task(task.id, task.title, task.tag, task.dueDate);
+    deleteTask = Task(
+      task.id,
+      task.title,
+      task.tag,
+      task.dueDate,
+      isFinish: task.isFinish,
+    );
     // print(deleteTask!.title);
   }
 
@@ -25,8 +31,10 @@ class _TaskListState extends State<TaskList> {
         deleteTask!.title,
         deleteTask!.tag,
         deleteTask!.dueDate,
+        isFinish: deleteTask!.isFinish,
       ),
     );
+    // print(deleteTask!.isFinish);
   }
 
   @override
@@ -39,13 +47,12 @@ class _TaskListState extends State<TaskList> {
               margin: EdgeInsets.only(top: 10.0),
               child: ListView.builder(
                 itemCount: tasks.length,
-                itemBuilder: (ctx, index) => TodoCard(
-                  tasks[index].id,
-                  tasks[index].title,
-                  tasks[index].tag,
-                  tasks[index].dueDate,
-                  setDeleteTask,
-                  unDeleteTask,
+                itemBuilder: (ctx, index) => ChangeNotifierProvider.value(
+                  value: tasks[index],
+                  child: TodoCard(
+                    setDeleteTask,
+                    unDeleteTask,
+                  ),
                 ),
               ),
             )

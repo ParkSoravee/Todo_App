@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app/providers/tags.dart';
 
-class Task {
+class Task with ChangeNotifier {
   final String id;
   final String title;
   final String tag;
   final DateTime? dueDate;
+  bool isFinish = false;
 
   Task(
     this.id,
     this.title,
     this.tag,
-    this.dueDate,
-  );
+    this.dueDate, {
+    this.isFinish = false,
+  });
+
+  void toggleIsFinish() {
+    isFinish = !isFinish;
+    notifyListeners();
+  }
 }
 
 class Tasks with ChangeNotifier {

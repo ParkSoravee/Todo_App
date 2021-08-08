@@ -4,39 +4,36 @@ import 'package:provider/provider.dart';
 import 'package:todo_app/providers/tags.dart';
 import 'package:todo_app/providers/tasks.dart';
 
-class TodoCard extends StatefulWidget {
-  final String id;
-  final String title;
-  final String tag;
-  final DateTime? dueDate;
+class TodoCard extends StatelessWidget {
+  // final String id;
+  // final String title;
+  // final String tag;
+  // final DateTime? dueDate;
+  // final bool isFinish;
+
   final Function(Task task) setDelTask;
   final Function unDelTask;
 
   TodoCard(
-    this.id,
-    this.title,
-    this.tag,
-    this.dueDate,
+    // this.id,
+    // this.title,
+    // this.tag,
+    // this.dueDate,
+    // this.isFinish,
     this.setDelTask,
     this.unDelTask,
   );
 
   @override
-  _TodoCardState createState() => _TodoCardState();
-}
-
-class _TodoCardState extends State<TodoCard> {
-  bool isFinish = false;
-
-  @override
   Widget build(BuildContext context) {
+    final task = Provider.of<Task>(context);
     final tagColor =
-        Provider.of<Tags>(context, listen: false).getColor(widget.tag);
+        Provider.of<Tags>(context, listen: false).getColor(task.tag);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Dismissible(
         direction: DismissDirection.endToStart,
-        key: ValueKey(widget.id),
+        key: ValueKey(task.id),
         background: Card(
           color: Theme.of(context).errorColor,
           clipBehavior: Clip.none,
@@ -55,10 +52,11 @@ class _TodoCardState extends State<TodoCard> {
           ),
         ),
         onDismissed: (_) {
-          widget.setDelTask(
-            Task(widget.id, widget.title, widget.tag, widget.dueDate),
+          setDelTask(
+            Task(task.id, task.title, task.tag, task.dueDate,
+                isFinish: task.isFinish),
           );
-          Provider.of<Tasks>(context, listen: false).deleteTask(widget.id);
+          Provider.of<Tasks>(context, listen: false).deleteTask(task.id);
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -68,7 +66,7 @@ class _TodoCardState extends State<TodoCard> {
                 label: 'undo',
                 textColor: Colors.grey[100],
                 onPressed: () {
-                  widget.unDelTask();
+                  unDelTask();
                 },
                 // onPressed: () {},
               ),
@@ -86,16 +84,12 @@ class _TodoCardState extends State<TodoCard> {
             child: Row(
               children: [
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      isFinish = !isFinish;
-                    });
-                  },
+                  onTap: task.toggleIsFinish,
                   child: Icon(
-                    isFinish
+                    task.isFinish
                         ? CupertinoIcons.checkmark_square_fill
                         : CupertinoIcons.square_fill,
-                    color: isFinish
+                    color: task.isFinish
                         ? Theme.of(context).primaryColor
                         : Colors.black12.withBlue(50),
                     size: 28,
@@ -104,22 +98,23 @@ class _TodoCardState extends State<TodoCard> {
                 SizedBox(width: 20),
                 Expanded(
                   child: Text(
-                    widget.title,
+                    task.title,
                     softWrap: false,
                     overflow: TextOverflow.fade,
                     maxLines: 1,
                     style: TextStyle(
                       fontSize: 17,
-                      decoration: isFinish ? TextDecoration.lineThrough : null,
-                      color: isFinish ? Colors.black54 : Colors.black,
+                      decoration:
+                          task.isFinish ? TextDecoration.lineThrough : null,
+                      color: task.isFinish ? Colors.black54 : Colors.black,
                     ),
                   ),
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: widget.tag != 'other'
+                  child: task.tag != 'other'
                       ? Text(
-                          widget.tag,
+                          task.tag,
                           style: TextStyle(
                             color: tagColor,
                             fontWeight: FontWeight.w600,
