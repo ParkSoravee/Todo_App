@@ -14,19 +14,21 @@ class _TaskListState extends State<TaskList> {
   Widget build(BuildContext context) {
     final tasks = Provider.of<Tasks>(context).tasks;
     return Expanded(
-      child: Container(
-        // padding: EdgeInsets.symmetric(horizontal: 18),
-        margin: EdgeInsets.only(top: 10.0),
-        child: ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (ctx, index) => TodoCard(
-            tasks[index].id,
-            tasks[index].title,
-            tasks[index].tag,
-            tasks[index].dueDate,
-          ),
-        ),
-      ),
+      child: tasks.length > 0
+          ? Container(
+              // padding: EdgeInsets.symmetric(horizontal: 18),
+              margin: EdgeInsets.only(top: 10.0),
+              child: ListView.builder(
+                itemCount: tasks.length,
+                itemBuilder: (ctx, index) => TodoCard(
+                  tasks[index].id,
+                  tasks[index].title,
+                  tasks[index].tag,
+                  tasks[index].dueDate,
+                ),
+              ),
+            )
+          : Center(child: Text('Try add new task...')),
     );
   }
 }

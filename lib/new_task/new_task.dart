@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -17,6 +19,7 @@ class _NewTaskState extends State<NewTask> {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
   var _isOnFocus = false;
+  var _isExtend = false;
 
   String _tag = 'other';
   DateTime? _dueDate;
@@ -69,8 +72,14 @@ class _NewTaskState extends State<NewTask> {
       setState(() {
         if (_focusNode.hasFocus) {
           _isOnFocus = true;
+          _isExtend = true;
         } else {
           _isOnFocus = false;
+          Timer(Duration(milliseconds: 400), () {
+            setState(() {
+              _isExtend = false;
+            });
+          });
         }
       });
     });
@@ -154,30 +163,29 @@ class _NewTaskState extends State<NewTask> {
           SizedBox(
             height: 10,
           ),
-          Container(
+          // if (_isOnFocus)
+          AnimatedContainer(
+            duration: Duration(milliseconds: 300),
+            curve: Curves.fastOutSlowIn,
             // width: double.infinity,
-            height: 30,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: tags.length,
-              itemBuilder: (ctx, index) => TagButton(
-                tags[index].title,
-                tags[index].color,
-                tags[index].title == _tag ? true : false,
-                selectTag,
+            height: _isExtend ? 30 : 0,
+            child: AnimatedOpacity(
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeIn,
+              opacity: _isOnFocus ? 1 : 0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemCount: tags.length,
+                itemBuilder: (ctx, index) => TagButton(
+                  tags[index].title,
+                  tags[index].color,
+                  tags[index].title == _tag ? true : false,
+                  selectTag,
+                ),
               ),
             ),
           ),
-          // Row(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: [
-          //     Tag(),
-          //     Tag(),
-          //     Tag(),
-          //     Tag(),
-          //   ],
-          // ),
         ],
       ),
     );

@@ -8,7 +8,7 @@ class OverAlls extends StatelessWidget {
   Widget build(BuildContext context) {
     final tags = Provider.of<Tags>(context, listen: false).tags;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      margin: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
       height: 90,
       child: ListView.builder(
         clipBehavior: Clip.none,
